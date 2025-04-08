@@ -33,4 +33,13 @@ func main() {
 		}
 	}
 	fmt.Println("Total Number of Lines      :",lines)
+
+		// Add Number of Spaces Logic
+		spaces := 0
+		for i := 0; i < len(a); i++ {
+			if a[i] == ' '{
+				spaces++
+			}
+		}
+		fmt.Println("Total Number of Spaces      :",spaces - 1)
 }
