@@ -13,9 +13,14 @@ func main() {
 	}
 	a :=string(file)
 
-	fmt.Println(len(a))
+	fmt.Println("Total Number of Characters :",len(a))
 
-	// for i := 0; i < 10; i++ {
-	// 	sum += i
-	// }
+	// Add Number of Words Logic
+    words := 0
+	for i := 0; i < len(a); i++ {
+		if a[i] == ' '{
+			words++
+		}
+	}
+	fmt.Println("Total Number of words      :",words)
 }
