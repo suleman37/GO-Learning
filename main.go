@@ -23,4 +23,14 @@ func main() {
 		}
 	}
 	fmt.Println("Total Number of words      :",words)
+
+
+	// Add Number of Lines Logic
+	lines := 0
+	for i := 0; i < len(a); i++ {
+		if a[i] == '\n'{
+			lines++
+		}
+	}
+	fmt.Println("Total Number of Lines      :",lines)
 }
