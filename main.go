@@ -79,4 +79,14 @@ func main() {
 		}
 	}
 	fmt.Println("Total Number of Vowels     :", cons)
+
+
+	// Add Number of Special Characters Logic
+	special := 0
+	for i := 0; i < len(a); i++ {
+			if !(a[i] >= 'a' && a[i] <= 'z') && !(a[i] >= 'A' && a[i] <= 'Z') && !(a[i] >= '0' && a[i] <= '9') && a[i] != ' ' {
+				special++
+			}
+	}
+	fmt.Println("Total Number of Special Characters    :", special)
 }
