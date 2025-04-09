@@ -3,9 +3,13 @@ package main
 import (
 	"fmt"
 	"os"
+	"time"
 )
 
 func main() {
+
+	now := time.Now()
+
 	file, err := os.ReadFile("text.txt")
 	if err != nil {
 		fmt.Println(err)
@@ -45,6 +49,9 @@ func main() {
 	// Add Number of Special Characters Logic
 	special := findspecialCount(fileContent)
 	fmt.Println("Total Number of Special Characters    :", special)
+
+	timeTaken := time.Now().Sub(now)
+	fmt.Println("Time taken in whole processing: ", timeTaken)
 }
 
 // Seperate Funcation for words count
@@ -55,7 +62,6 @@ func findWordCount(fileContent string) int {
 			words++
 		}
 	}
-
 	return words
 }
 
