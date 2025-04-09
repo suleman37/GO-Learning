@@ -70,4 +70,13 @@ func main() {
 		}
 	}
 	fmt.Println("Total Number of Digits   :", digits)
+
+	// Add Number of consonents Logic
+	cons := 0
+	for i := 0; i < len(a); i++ {
+		if a[i] != 'a' && a[i] != 'e' && a[i] != 'i' && a[i] != 'o' && a[i] != 'u' {
+			cons++
+		}
+	}
+	fmt.Println("Total Number of Vowels     :", cons)
 }
