@@ -18,7 +18,7 @@ func main() {
 	fileContent := string(file)
 
 	fmt.Println("Total Number of Characters :", len(fileContent))
-	words, line, spaces, vowels, punchar , digits , cons , special := findWordCount(fileContent)
+	words, line, spaces, vowels, punchar , digits , cons , special := combination(fileContent)
 	fmt.Println("Total Number of words       :", words)
 	fmt.Println("Total Number of Lines       :", line)
 	fmt.Println("Total Number of Spaces      :", spaces-1)
@@ -31,7 +31,7 @@ func main() {
 	fmt.Println("Time taken in whole processing: ", timeTaken)
 }
 
-func findWordCount(fileContent string) (int, int, int, int, int , int , int , int) {
+func combination(fileContent string) (int, int, int, int, int , int , int , int) {
 	punchar := 0
 	special :=0
 	spaces := 0
@@ -49,6 +49,7 @@ func findWordCount(fileContent string) (int, int, int, int, int , int , int , in
 		}
 		if fileContent[i] == ' ' {
 			spaces++
+
 		}
 		switch fileContent[i] {
 		case 'a', 'e', 'i', 'o', 'u':
