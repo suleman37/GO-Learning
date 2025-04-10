@@ -17,7 +17,7 @@ func main() {
 	fileContent := string(file)
 	lengthofData := len(fileContent);
 
-	chunksize:=lengthofData / 3
+	chunksize := lengthofData / 8
 
 	fmt.Println(chunksize)
 	chunks := make([]string,8);
