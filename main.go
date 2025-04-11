@@ -24,19 +24,19 @@ func main() {
 		c.JSON(http.StatusOK, books)
 	})
 
-	r.POST("/post", func(c *gin.Context) {
+	r.POST("/create-cars", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "Data Posted Sucessfully!",
 		})
 	})
 
-	r.DELETE("/post", func(c *gin.Context) {
+	r.DELETE("/delete-cars", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "Data Deleted Sucessfully!",
 		})
 	})
 
-	r.PUT("/post", func(c *gin.Context) {
+	r.PUT("/update-cars", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "Data Updated Sucessfully!",
 		})
