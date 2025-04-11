@@ -1,45 +1,27 @@
 package main
 
 import (
-	"fmt"
-	"suleman37/Golang_Training/analyzer"
-	"os"
-	"time"
+	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
+type Book struct {
+	ID     int    `json:"id"`
+	Name  string `json:"name"`
+	Model string `json:"model"`
+}
+
 func main() {
-	now := time.Now()
-	file, err := os.ReadFile("text.txt")
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	fileContent := string(file)
-	lengthofData := len(fileContent);
+	r := gin.Default()
 
-	chunksize := lengthofData / 8
-
-	fmt.Println(chunksize)
-	chunks := make([]string,8);
-	for i := 0; i < 8; i++ {
-		startChunk := i * chunksize;
-		endChunk := (i + 1) * chunksize;
-		if i == 8-1 {
-			endChunk = lengthofData
-		}
-		chunks[i] = fileContent[startChunk:endChunk]
+	books := []Book{
+		{ID: 1, Name: "Toyota Raiz", Model: "2024"},
+		{ID: 2, Name: "Grandee X", Model: "2025"},
 	}
 
-	fmt.Println("Total Number of Characters  :", len(fileContent))
-	words, line, spaces, vowels, punchar, digits, cons, special := analyzer.Combination(fileContent)
-	fmt.Println("Total Number of words       :", words)
-	fmt.Println("Total Number of Lines       :", line)
-	fmt.Println("Total Number of Spaces      :", spaces-1)
-	fmt.Println("Total Number of Vowels      :", vowels)
-	fmt.Println("Total Number of Punctuations:", punchar)
-	fmt.Println("Total Number of Digits      :", digits)
-	fmt.Println("Total Number of Vowels      :", cons)
-	fmt.Println("Total Special Characters    :", special)
-	timeTaken := time.Since(now)
-	fmt.Println("Time taken in whole processing:", timeTaken)
+	r.GET("/cars", func(c *gin.Context) {
+		c.JSON(http.StatusOK, books)
+	})
+
+	r.Run(":8080")
 }
