@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"gotask/analyzer"
+	"suleman37/Golang_Training/analyzer"
 	"os"
 	"time"
 )
@@ -29,7 +29,6 @@ func main() {
 		}
 		chunks[i] = fileContent[startChunk:endChunk]
 	}
-
 
 	fmt.Println("Total Number of Characters  :", len(fileContent))
 	words, line, spaces, vowels, punchar, digits, cons, special := analyzer.Combination(fileContent)
