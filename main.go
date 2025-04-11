@@ -29,5 +29,11 @@ func main() {
 			"message": "Data Posted Sucessfully!",
 		})
 	})
+
+	r.DELETE("/post", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "Data Deleted Sucessfully!",
+		})
+	})
 	r.Run(":8080")
 }
