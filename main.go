@@ -2,26 +2,35 @@ package main
 
 import (
 	"net/http"
-
+	"os"
+	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
-type Book struct {
+type Car struct {
 	ID    int    `json:"id"`
 	Name  string `json:"name"`
 	Model string `json:"model"`
 }
 
 func main() {
+
+	file, err := os.ReadFile("text.txt")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	filecontent := string(file)
+
+	fmt.Println(filecontent)
+
 	r := gin.Default()
 
-	books := []Book{
-		{ID: 1, Name: "Toyota Raize", Model: "2024"},
-		{ID: 2, Name: "Grandee X", Model: "2025"},
-	}
 
 	r.GET("/cars", func(c *gin.Context) {
-		c.JSON(http.StatusOK, books)
+		c.JSON(http.StatusOK, gin.H{
+			"fileContent": filecontent,
+		})
 	})
 
 	r.POST("/create-cars", func(c *gin.Context) {
