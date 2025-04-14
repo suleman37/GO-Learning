@@ -3,7 +3,6 @@ package service
 import (
 	"net/http"
 	"suleman37/Golang_Training/middleware"
-
 	"github.com/gin-gonic/gin"
 )
 

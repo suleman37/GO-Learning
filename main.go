@@ -14,8 +14,8 @@ type User struct {
 }
 
 func main() {
-	r := gin.Default()
-
+	r := gin.Default();
+	r.POST("/register", controller.Login)
 	r.POST("/login", controller.Login)
 	r.POST("/token", func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
