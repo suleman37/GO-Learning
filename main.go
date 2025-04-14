@@ -1,30 +1,18 @@
 package main
 
 import (
-	"net/http"
+	"suleman37/Golang_Training/controller"
 	"github.com/gin-gonic/gin"
 )
 
 type User struct {
-	ID    int    `form:"id" json:"id"`
-	Name  string `form:"name" json:"name"`
-	Model string `form:"model" json:"model"`
+	Username string `form:"username" json:"username"`
+	Password string `form:"password" json:"password"`
 }
 
 func main() {
 	r := gin.Default()
-	r.POST("/postdata", func(c *gin.Context) {
-		var user User
-		if err := c.ShouldBind(&user); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
-		}
-		c.JSON(http.StatusOK, gin.H{
-			"id":    user.ID,
-			"name":  user.Name,
-			"model": user.Model,
-		})
-	})
+	r.POST("/postdata", controller.Login)
 
-	r.Run(":8080")
+	r.Run(":8000")
 }
