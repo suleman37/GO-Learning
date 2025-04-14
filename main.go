@@ -12,7 +12,9 @@ type User struct {
 
 func main() {
 	r := gin.Default()
+
 	r.POST("/postdata", controller.Login)
 
 	r.Run(":8000")
 }
+
