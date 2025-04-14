@@ -2,52 +2,27 @@ package main
 
 import (
 	"net/http"
-	"os"
-	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
-type Car struct {
-	ID    int    `json:"id"`
-	Name  string `json:"name"`
-	Model string `json:"model"`
+type User struct {
+	ID    int    `form:"id" json:"id"`
+	Name  string `form:"name" json:"name"`
+	Model string `form:"model" json:"model"`
 }
 
 func main() {
-
-	file, err := os.ReadFile("text.txt")
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	filecontent := string(file)
-
-	fmt.Println(filecontent)
-
 	r := gin.Default()
-
-
-	r.GET("/cars", func(c *gin.Context) {
+	r.POST("/postdata", func(c *gin.Context) {
+		var user User
+		if err := c.ShouldBind(&user); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
 		c.JSON(http.StatusOK, gin.H{
-			"fileContent": filecontent,
-		})
-	})
-
-	r.POST("/create-cars", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Data Posted Sucessfully!",
-		})
-	})
-
-	r.DELETE("/delete-cars", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Data Deleted Sucessfully!",
-		})
-	})
-
-	r.PUT("/update-cars", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Data Updated Sucessfully!",
+			"id":    user.ID,
+			"name":  user.Name,
+			"model": user.Model,
 		})
 	})
 
