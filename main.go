@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"suleman37/Golang_Training/controller"
+	"suleman37/Golang_Training/dbconnect"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
 	"strings"
@@ -17,6 +18,7 @@ func main() {
 	r := gin.Default();
 	r.POST("/register", controller.Login)
 	r.POST("/login", controller.Login)
+	dbconnect.DBConnection()
 	r.POST("/token", func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
 		tokenString := strings.TrimPrefix(authHeader, "Bearer ")

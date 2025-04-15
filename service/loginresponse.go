@@ -16,5 +16,4 @@ func HandleLoginResponse(c *gin.Context, inputUsername, inputPassword, correctUs
 	} else {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid username or password"})
 	}
-
 }
