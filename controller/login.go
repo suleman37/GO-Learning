@@ -7,12 +7,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var username = "admin"
-var password = "password123"
-
 func Login(c *gin.Context) {
 	var credentials struct {
-		Username string `json:"username"`
+		Email    string `json:"email"`
 		Password string `json:"password"`
 	}
 
@@ -20,6 +17,5 @@ func Login(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request"})
 		return
 	}
-
-	service.HandleLoginResponse(c, credentials.Username, credentials.Password, username, password)
+	service.HandleLoginResponse(c, credentials.Email, credentials.Password)
 }

@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"suleman37/Golang_Training/controller"
-	"suleman37/Golang_Training/dbconnect"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
 	"strings"
+	"suleman37/Golang_Training/controller"
+	"suleman37/Golang_Training/dbconnect"
 )
 
 type User struct {
@@ -15,7 +15,7 @@ type User struct {
 }
 
 func main() {
-	r := gin.Default();
+	r := gin.Default()
 	r.POST("/register", controller.Register)
 	r.POST("/login", controller.Login)
 	dbconnect.DBConnection()
@@ -52,4 +52,4 @@ func verifyToken(tokenString string, c *gin.Context) error {
 		c.JSON(401, gin.H{"error": "Invalid token"})
 	}
 	return nil
-}
+};
