@@ -8,6 +8,7 @@ import (
 	"time"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 func HandleRegisterResponse(c *gin.Context, email, username, password string) {
@@ -20,12 +21,27 @@ func HandleRegisterResponse(c *gin.Context, email, username, password string) {
 
 	log.Println("Connected to MongoDB successfully")
 
+	if isEmailRegistered(client, email) {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Email is already registered"})
+		return
+	}
+
 	err = saveUserToDatabase(client, email, username, password)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error saving user to database"})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "User registered successfully"})
+}
+
+func isEmailRegistered(client *mongo.Client, email string) bool {
+	collection := client.Database("Golang").Collection("users")
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	var result bson.M
+	err := collection.FindOne(ctx, bson.M{"email": email}).Decode(&result)
+	return err == nil
 }
 
 func saveUserToDatabase(client *mongo.Client, email, username, password string) error {
