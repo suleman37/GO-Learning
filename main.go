@@ -16,7 +16,7 @@ type User struct {
 
 func main() {
 	r := gin.Default();
-	r.POST("/register", controller.Login)
+	r.POST("/register", controller.Register)
 	r.POST("/login", controller.Login)
 	dbconnect.DBConnection()
 	r.POST("/token", func(c *gin.Context) {
@@ -37,7 +37,7 @@ func main() {
 }
 
 func verifyToken(tokenString string, c *gin.Context) error {
-	secretKey := []byte("123456789")
+	secretKey := []byte("123abcxyz")
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
