@@ -1,15 +1,15 @@
 package service
 
 import (
-	"net/http"
-	"github.com/gin-gonic/gin"
 	"context"
-	"log"
-	"time"
+	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"go.mongodb.org/mongo-driver/bson"
 	"golang.org/x/crypto/bcrypt"
+	"log"
+	"net/http"
+	"time"
 )
 
 func HandleRegisterResponse(c *gin.Context, email, username, password string) {

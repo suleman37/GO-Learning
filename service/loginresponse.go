@@ -6,6 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"golang.org/x/crypto/bcrypt"
 	"net/http"
 	"suleman37/Golang_Training/middleware"
 	"time"
@@ -40,7 +41,8 @@ func HandleLoginResponse(c *gin.Context, inputEmail, inputPassword string) {
 		return
 	}
 
-	if user.Password != inputPassword {
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(inputPassword))
+	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid email or password"})
 		return
 	}
