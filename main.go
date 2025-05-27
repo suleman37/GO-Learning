@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
-	"strings"
 	"suleman37/Golang_Training/controller"
 	"suleman37/Golang_Training/dbconnect"
 )
@@ -16,10 +16,14 @@ type User struct {
 
 func main() {
 	r := gin.Default()
+
+	r.Use(corsMiddleware())
+
 	r.POST("/register", controller.Register)
 	r.POST("/login", controller.Login)
-	r.POST("/message", controller.Login)
+	r.POST("/message", controller.CreateMessage)
 	dbconnect.DBConnection()
+
 	r.POST("/token", func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
 		tokenString := strings.TrimPrefix(authHeader, "Bearer ")
@@ -34,6 +38,21 @@ func main() {
 	})
 
 	r.Run(":8000")
+}
+
+func corsMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, Content-Type, Authorization")
+		c.Writer.Header().Set("Access-Control-Expose-Headers", "Content-Length")
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+		c.Next()
+	}
 }
 
 func verifyToken(tokenString string, c *gin.Context) error {
