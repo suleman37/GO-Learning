@@ -9,6 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/bson"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func HandleRegisterResponse(c *gin.Context, email, username, password string) {
@@ -26,7 +27,13 @@ func HandleRegisterResponse(c *gin.Context, email, username, password string) {
 		return
 	}
 
-	err = saveUserToDatabase(client, email, username, password)
+	hashedPassword, err := hashPassword(password)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error hashing password"})
+		return
+	}
+
+	err = saveUserToDatabase(client, email, username, hashedPassword)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error saving user to database"})
 		return
@@ -63,4 +70,9 @@ func saveUserToDatabase(client *mongo.Client, email, username, password string) 
 	}
 
 	return nil
+}
+
+func hashPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	return string(bytes), err
 }

@@ -18,6 +18,7 @@ func main() {
 	r := gin.Default()
 	r.POST("/register", controller.Register)
 	r.POST("/login", controller.Login)
+	r.POST("/message", controller.Login)
 	dbconnect.DBConnection()
 	r.POST("/token", func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
@@ -26,7 +27,6 @@ func main() {
 			c.JSON(400, gin.H{"message": "Bearer token is missing"})
 			return
 		}
-
 		if err := verifyToken(tokenString, c); err != nil {
 			return
 		}
@@ -52,4 +52,4 @@ func verifyToken(tokenString string, c *gin.Context) error {
 		c.JSON(401, gin.H{"error": "Invalid token"})
 	}
 	return nil
-};
+}

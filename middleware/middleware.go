@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"time"
 	"github.com/golang-jwt/jwt/v5"
+	"time"
 )
 
 var secretKey = []byte("123456789")
@@ -13,11 +13,9 @@ func CreateToken(username string) (string, error) {
 			"username": username,
 			"exp":      time.Now().Add(time.Hour * 24).Unix(),
 		})
-
 	tokenString, err := token.SignedString(secretKey)
 	if err != nil {
 		return "", err
 	}
-
 	return tokenString, nil
 }

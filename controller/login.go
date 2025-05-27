@@ -18,4 +18,4 @@ func Login(c *gin.Context) {
 		return
 	}
 	service.HandleLoginResponse(c, credentials.Email, credentials.Password)
-}
+};
