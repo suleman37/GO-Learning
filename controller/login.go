@@ -3,7 +3,6 @@ package controller
 import (
 	"net/http"
 	"suleman37/Golang_Training/service"
-
 	"github.com/gin-gonic/gin"
 )
 
