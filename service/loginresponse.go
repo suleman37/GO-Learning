@@ -10,9 +10,10 @@ import (
 	"net/http"
 	"suleman37/Golang_Training/middleware"
 	"time"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
-
 type User struct {
+	ID       primitive.ObjectID `bson:"_id" json:"id"`
 	Email    string `bson:"email"`
 	Password string `bson:"password"`
 }
@@ -47,7 +48,7 @@ func HandleLoginResponse(c *gin.Context, inputEmail, inputPassword string) {
 		return
 	}
 
-	token, err := middleware.CreateToken(user.Email)
+	token, err := middleware.CreateToken(user.ID.Hex(), user.Email)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error generating token"})
 		return
