@@ -16,10 +16,9 @@ type User struct {
 
 func main() {
 	r := gin.Default()
-
 	r.Use(corsMiddleware())
-
 	r.POST("/register", controller.Register)
+	r.GET("/users", controller.GetAllUsers)
 	r.POST("/login", controller.Login)
 	r.POST("/message", controller.CreateMessage)
 	dbconnect.DBConnection()

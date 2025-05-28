@@ -75,4 +75,4 @@ func saveUserToDatabase(client *mongo.Client, email, username, password string) 
 func hashPassword(password string) (string, error) {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	return string(bytes), err
-}
+};
