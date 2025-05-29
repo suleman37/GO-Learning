@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"strings"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
+	"strings"
 	"suleman37/Golang_Training/controller"
 	"suleman37/Golang_Training/dbconnect"
 )
@@ -21,6 +21,7 @@ func main() {
 	r.GET("/users", controller.GetAllUsers)
 	r.POST("/login", controller.Login)
 	r.POST("/message", controller.CreateMessage)
+	r.GET("/messages-get", controller.GetMessage)
 	dbconnect.DBConnection()
 
 	r.POST("/token", func(c *gin.Context) {

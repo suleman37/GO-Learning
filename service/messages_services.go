@@ -9,7 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func FetchAllUsers() ([]map[string]interface{}, error) {
+func FetchAllMessages() ([]map[string]interface{}, error) {
 	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 	if err != nil {
@@ -17,7 +17,7 @@ func FetchAllUsers() ([]map[string]interface{}, error) {
 		return nil, err
 	}
 
-	collection := client.Database("Golang").Collection("users")
+	collection := client.Database("Golang").Collection("messages")
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
